@@ -1,0 +1,17 @@
+# Editor directories and files
+.idea
+.vscode
+
+#
+.DS_Store
+node_modules
+dist
+
+# update to server package
+dist.zip
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

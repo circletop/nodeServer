@@ -66,6 +66,7 @@ npx: installed 10 in 1.657s
 
 ### 目录
 
+```
  .
 ├── app.js
 ├── bin
@@ -83,6 +84,9 @@ npx: installed 10 in 1.657s
     ├── error.jade
     ├── index.jade
     └── layout.jade
+```
+
+
 
 - app.js      入口文件
 - package.json   配置文件
@@ -157,3 +161,23 @@ module.exports = function connection(sql, cb) {
 }
 ```
 
+
+
+## 部署
+
+打包项目到服务器,部署到 通过docker 创建镜像并生成容器 即可使用 
+
+> 发布方式一：
+
+```shell
+# 通过docker 发布生成镜像 
+[root@localhost dockerFile]# docker build -t nodeserver:1.0 .
+
+# 通过docker 发布生成容器
+[root@localhost dockerFile]# docker run --name nodeserver -d -p 3001:3001 nodeserver:1.0
+
+```
+
+> 发布方式二：
+
+通过CI/CD一键发布

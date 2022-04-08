@@ -8,7 +8,7 @@ const mysql = {
 }
 const log = {
   error (message) {
-    console.log('[knex error]', message)
+    console.log(message)
   }
 }
 const configs = {

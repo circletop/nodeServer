@@ -7,7 +7,7 @@ const pool = mysql.createPool({
   user: configs.mysql.user,
   password: configs.mysql.password,
   database: configs.mysql.database,
-  connectTimeout: configs.mysql.database,
+  connectTimeout: configs.mysql.connectTimeout,
 });
 
 /**
@@ -15,12 +15,13 @@ const pool = mysql.createPool({
  * @param sql 需要执行的 SQL
  * @param cb  执行完SQL 之后的回调
  */
-module.exports = function connection(sql, cb) {
-  pool.getConnection((err, conn)=> {
+
+module.exports = function connection(sql, content=[], cb) {
+  pool.getConnection((err, conn) => {
     if (err) {
       cb(err, null, null)
     } else {
-      conn.query(sql,function (qerr, result, fields) {
+      conn.query(sql, content, function (qerr, result, fields) {
         conn.release()
         cb(qerr, result, fields)
       })

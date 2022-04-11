@@ -15,4 +15,4 @@ RUN npm install
 
 ENTRYPOINT ["npm", "run"]
 
-CMD ["start"]
+CMD ["prod"]

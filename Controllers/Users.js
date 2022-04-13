@@ -1,4 +1,5 @@
 const connection = require('../connection')
+const validator =require ('validator');
 
 const userController = {
   // 查询用户列表
@@ -86,10 +87,61 @@ const userController = {
     )
   },
   addUser: (req, res) => {
-    const { body } = req
-    const sql = `INSERT INTO user() VALUES() `
+    //  name age sex country password
+    const { name, age, sex, country, password } = req.body
+    if (validator.isEmpty(name)) {
+      res.json({
+        code: '0',
+        err: '用户名不能为空',
+      })
+      return false
+    }
+    if (validator.isEmpty(age)) {
+      res.json({
+        code: '0',
+        err: '账户年龄不能为空',
+      })
+      return false
+    }
+    if (validator.isEmpty(password)) {
+      console.log(req.body, 1)
+     return res.json({
+        code: '0',
+        err: '账户密码不能为空',
+      })
+    }
+    // const params = [name, age, sex, country, password]
+    let params = []
+    let key = ''
+    Object.keys(req.body).map(
+      item => {
+        if (['name', 'age', 'sex', 'country', 'password'].includes(item)) {
+          key += `${item},`
+          params.push(req.body[item])
+        }
+      }
+    )
+    key = key.substring(0, key.lastIndexOf(','))
+    const sql = `INSERT INTO user(${key}) VALUES(${new Array(params.length).fill('?').toString()})`
+    connection(sql, params, function (err, result, fields) {
+      if (!err) {
+        res.json({
+          code: '0000',
+          result
+        })
+      } else {
+        res.json({
+          code: '0',
+          err,
+          result,
+        })
+      }
 
-  },
+
+    })
+
+
+      },
   updateUser: () => {
 
   },

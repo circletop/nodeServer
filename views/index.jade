@@ -1,5 +1,30 @@
 extends layout
 
 block content
-  h1(style={'text-align':'center',color: 'turquoise'})= title
-  p(style={color:'#f20',padding:'5px 10px', 'text-align': 'center'}) 网站建设中, #{waiting}
+    h1(style={
+      'text-align': 'center',
+      color: 'turquoise'
+    })= title
+    p(style={
+      color: '#f20',
+      padding: '5px 10px',
+      'text-align': 'center'
+    }) 网站建设中, #{waiting}
+    table(border=1 class='table' style={
+      border: '1px solid #eee',
+      width: '100%',
+      'border-spacing': '20px',
+      'border-collapse': 'collapse',
+      'text-align': 'center'
+    })
+        thead
+            tr
+                th 路径
+                th 请求方式
+                th 接口说明
+        tbody
+            - each a in table
+                tr
+                    td #{a.path}
+                    td #{a.method}
+                    td #{a.description}

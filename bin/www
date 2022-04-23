@@ -7,6 +7,24 @@
 var app = require('../app');
 var debug = require('debug')('serve:server');
 var http = require('http');
+const os = require('os')
+
+const interfaces = os.networkInterfaces()
+
+/**
+ *  get a hyperLink
+ */
+function getNetAddress() {
+  for(const dev in interfaces) {
+    const iface = interfaces[dev]
+    for(let i=0;i<iface.length; i++) {
+      let { family, address, internal } = iface[i]
+      if ( family=== 'IPv4' && !internal && address !== '127.0.0.1') {
+        return address
+      }
+    }
+  }
+}
 
 /**
  * Get port from environment and store in Express.
@@ -86,7 +104,10 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  console.error(`${addr.address}:${addr.port}`);
+  // console.error(`${addr.address}:${addr.port}`);
+  console.log(`  App running at:`)
+  console.log(`  - Local:   http://localhost:${addr.port}`)
+  console.log(`  - netWork:   http://${getNetAddress()}:${addr.port}`)
 
   debug('Listening on ' + bind);
 }

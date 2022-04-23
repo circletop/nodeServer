@@ -1,0 +1,11 @@
+{
+  "watch": [
+    "bin/",
+    "connection/",
+    "Controllers/",
+    "routes/",
+    "views/",
+    "config.js",
+    "app.js"
+  ]
+}

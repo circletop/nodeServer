@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon rs ./bin/www",
+    "start": "nodemon ./bin/www",
     "prod": "node ./bin/www"
   },
   "dependencies": {
@@ -14,6 +14,7 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
+    "nodemon": "^2.0.15",
     "validator": "^13.7.0",
     "winston": "^3.6.0"
   }

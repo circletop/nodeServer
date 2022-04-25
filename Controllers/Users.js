@@ -141,17 +141,44 @@ const userController = {
   updateUser: (req, res) => {
     const { id } = req.params
     const params = req.body
-    const keys = Object.keys(params).map(item=> {
+    const keys = Object.keys(params).map(item => {
       return `${item} = ?`
     }).toString()
     const condition = Object.values(params)
-
+    console.log(keys, params)
     const sql = `UPDATE user SET  ${keys} where id = ${id}`
-    connection()
-
+    connection(sql, condition, function (err, result, filed) {
+      if (!err) {
+        res.json({
+          code: '0000',
+          result
+        })
+      } else {
+        res.json({
+          code: '0',
+          err,
+          result,
+        })
+      }
+    })
   },
-  deleteUser: () => {
-
+  deleteUser: (req, res) => {
+    const { id } = req.params
+    const sql = `DELETE FROM user where id=${id}`
+    connection(sql,[], (err, result, field)=> {
+      if (!err) {
+        res.json({
+          code: '0000',
+          result
+        })
+      } else {
+        res.json({
+          code: '0',
+          err,
+          result,
+        })
+      }
+    })
   },
 }
 

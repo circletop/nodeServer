@@ -1,5 +1,5 @@
 const connection = require('../connection')
-const validator =require ('validator');
+const validator = require('validator');
 
 const userController = {
   // 查询用户列表
@@ -12,7 +12,7 @@ const userController = {
     let isMore = false
 
     let condition = []
-    Object.keys(params).map(key=> {
+    Object.keys(params).map(key => {
       if (!['pageNum', 'pageSize'].includes(key)) {
         condition.push(`  ${key} LIKE ?`)
         content.push('%' + params[key] + '%')
@@ -20,7 +20,7 @@ const userController = {
     })
 
     if (condition.length) {
-      sql= sql + ' WHERE' + condition.join(' and')
+      sql = sql + ' WHERE' + condition.join(' and')
     }
 
     // if (params.name) {
@@ -105,7 +105,7 @@ const userController = {
     }
     if (validator.isEmpty(password)) {
       console.log(req.body, 1)
-     return res.json({
+      return res.json({
         code: '0',
         err: '账户密码不能为空',
       })
@@ -136,14 +136,18 @@ const userController = {
           result,
         })
       }
-
-
     })
+  },
+  updateUser: (req, res) => {
+    const { id } = req.params
+    const params = req.body
+    const keys = Object.keys(params).map(item=> {
+      return `${item} = ?`
+    }).toString()
+    const condition = Object.values(params)
 
-
-      },
-  updateUser: () => {
-
+    const sql = `UPDATE user SET  ${keys} where id = ${id}`
+    connection()
 
   },
   deleteUser: () => {

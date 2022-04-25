@@ -145,7 +145,6 @@ const userController = {
       return `${item} = ?`
     }).toString()
     const condition = Object.values(params)
-    console.log(keys, params)
     const sql = `UPDATE user SET  ${keys} where id = ${id}`
     connection(sql, condition, function (err, result, filed) {
       if (!err) {
